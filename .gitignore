@@ -1,19 +1,18 @@
+# Dependency directory
+node_modules
+
+# Redis database
+*.rdb
+
 # Logs
 logs
 *.log
 
 # Runtime data
-pids
 *.pid
+pids
 *.seed
-
-# Dependency directory
-node_modules
-
-# Env vars
 .env
 
-# Redis database
-*.rdb
-
+# Mac
 .DS_Store
