@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var redirectModel = require('../models/Redirect');
 
 module.exports = function (redis) {
@@ -31,7 +30,7 @@ module.exports = function (redis) {
   });
 
   // create or update redirect
-  router.post('/__redirect__', function(req, res) {
+  router.post('/redirect', function(req, res) {
     var key = req.body.key;
     var url = req.body.url;
     if (!key || !url) {
@@ -47,7 +46,7 @@ module.exports = function (redis) {
   });
 
   // delete redirect
-  router.delete('/__redirect__', function(req, res) {
+  router.delete('/redirect', function(req, res) {
     var key = req.body.key;
     if (!key) {
       res.status(400).send("You failed to supply all of the parameters.");

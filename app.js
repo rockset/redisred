@@ -2,6 +2,7 @@
 var express = require('express');
 var Redis = require('ioredis');
 var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
 
 // Load env variables
 var port = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ var redis = new Redis(redisUrl);
 var app = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(favicon('./public/assets/favicon.ico'));
 
 // Initialize routes

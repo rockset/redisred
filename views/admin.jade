@@ -19,12 +19,12 @@ html
             td.col-sm-7(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
               a(href=redirect.url)= redirect.url
             td.col-sm-1(style="vertical-align: middle")= redirect.clicks
-            form(action="/__redirect__/delete", method="DELETE")
+            form(action="/redirect", method="DELETE")
               td.col-sm-2(colspan=2, style="vertical-align: middle")
                 input(type="hidden", name="key", value=redirect.key)
                 button.btn.btn-default.btn-block.remove-button Remove
         tr
-          form(action="/__redirect__/create", method="POST")
+          form(action="/redirect", method="POST")
             td.col-sm-2(style="vertical-align: middle")
               input.form-control(name="key", placeholder="Redirect Name")
             td.col-sm-7(style="vertical-align: middle")
