@@ -45,20 +45,5 @@ module.exports = function (redis) {
     });
   });
 
-  // delete redirect
-  router.delete('/redirect', function(req, res) {
-    var key = req.body.key;
-    if (!key) {
-      res.status(400).send("You failed to supply all of the parameters.");
-      return;
-    }
-    Redirect.delete(key, function(err) {
-      if (err)
-        res.status(500).send(err);
-      else
-        res.redirect('/');
-    });
-  });
-
   return router;
 };

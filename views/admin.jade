@@ -10,25 +10,20 @@ html
       table.table.table-striped(style="table-layout: fixed;")
         tr
           th.col-sm-2 Alias
-          th.col-sm-7 URL
-          th.col-sm-3(colspan=3) Clicks
+          th.col-sm-8 URL
+          th.col-sm-2 Clicks
         each redirect in redirects
           tr
             td.col-sm-2(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
               a(href=("/"+redirect.key))=redirect.key
-            td.col-sm-7(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
+            td.col-sm-8(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
               a(href=redirect.url)= redirect.url
-            td.col-sm-1(style="vertical-align: middle")= redirect.clicks
-            form(action="/redirect", method="DELETE")
-              td.col-sm-2(colspan=2, style="vertical-align: middle")
-                input(type="hidden", name="key", value=redirect.key)
-                button.btn.btn-default.btn-block.remove-button Remove
+            td.col-sm-2(style="vertical-align: middle")= redirect.clicks
         tr
           form(action="/redirect", method="POST")
             td.col-sm-2(style="vertical-align: middle")
               input.form-control(name="key", placeholder="Redirect Name")
-            td.col-sm-7(style="vertical-align: middle")
+            td.col-sm-8(style="vertical-align: middle")
               input.form-control(name="url", placeholder="https://")
-            td.col-sm-1(style="vertical-align: middle") 
             td.col-sm-2(colspan=2, style="vertical-align: middle")
               button.btn.btn-danger.btn-block(style="background-color: #cb7512") Create / Update
