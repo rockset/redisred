@@ -30,7 +30,7 @@ var app = express();
 var redisSessionStore = new RedisStore({client: redis});
 app.set('views', './views');
 app.set('view engine', 'jade');
-app.use(favicon('./public/assets/favicon.png'));
+app.use(favicon('./public/assets/favicon.ico'));
 app.use(cookieParser());
 app.use(expressSession({ store: redisSessionStore, secret: sessionSecret, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());

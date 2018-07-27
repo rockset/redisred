@@ -1,11 +1,12 @@
 html
   head
-    title redisred admin
+    title Rockset shortlinks
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
     meta(name="viewport",content="width=device-width, initial-scale=1")
-  body
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,600")
+  body(style="font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif")
     div.container(style="margin-top: 10%; max-width: 500px;")
-      h1(style="text-align: center; font-size: 4em;") redisred admin
+      h1(style="text-align: center; font-size: 4em;") Rockset shortlinks
       div.content
         form(action="/admin/login", method="POST")
           div.form-group
@@ -14,7 +15,7 @@ html
           div.form-group
             label(for="password") Password
             input.form-control(id="password", name="password", type="password", placeholder="Password")
-          button.btn.btn-danger.btn-block Log in
+          button.btn.btn-danger.btn-block(style="background-color: #cb7512;") Log in
           #alert.alert.alert-danger(style="margin-top: 10px; display: none;") Wrong username or password.
           script if (window.location.hash.length) document.getElementById("alert").style.display = "block";
 
