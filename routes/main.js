@@ -17,8 +17,9 @@ module.exports = function (redis) {
   })
 
   // redirect or show 404
-  router.get('/:redirect_name', function(req, res) {
+  router.get('/:redirect_name*', function(req, res) {
     var redirectName = req.params.redirect_name;
+    if (req.params['0']) redirectName += req.params['0'];
     Redirect.get(redirectName, function(err, redirect) {
       if (err)
         res.status(500).send(err);
