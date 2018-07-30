@@ -38,8 +38,10 @@ module.exports = function (redis) {
                 res.status(500).send(err);
               else if (!redirect)
                 tryRedirect(aliasParts, numAppendedParts + 1);
-              else
-                res.redirect(redirect.url + '/' + appendedPath);
+              else {
+                if (appendedPath[0] != '/') appendedPath = '/' + appendedPath;
+                res.redirect(redirect.url + appendedPath);
+              }
             });
         }
     }
