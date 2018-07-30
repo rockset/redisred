@@ -1,9 +1,28 @@
 html
   head
     title Rockset shortlinks
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
     meta(name="viewport",content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,600")
+    script(type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js')
+    script.
+      $(document).ready(function () {
+        var alias = 'rs';
+        $('.delete-alias').click(function () {
+          var alias = $(this).data('key');
+          if(confirm('Are you sure you would like to delete the alias "' + alias + '"?\n\nNote: you can NOT undo deleting an alias!')) {
+            $.ajax({
+              url: '/redirect',
+              type: 'DELETE',
+              data: { 'key' : alias },
+              success: function () {
+                location.reload();
+              }
+            });
+          }
+        });
+      });
+      
   body(style="font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif")
     div.container-fluid(style="max-width: 1000px;")
       h1 Rockset shortlinks
@@ -11,19 +30,23 @@ html
         tr
           th.col-sm-2 Alias
           th.col-sm-8 URL
-          th.col-sm-2 Clicks
+          th.col-sm-1 Clicks
+          th.col-sm-1 
         each redirect in redirects
           tr
             td.col-sm-2(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
               a(href=("/"+redirect.key))=redirect.key
             td.col-sm-8(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all; vertical-align: middle;")
               a(href=redirect.url)= redirect.url
-            td.col-sm-2(style="vertical-align: middle")= redirect.clicks
+            td.col-sm-1(style="vertical-align: middle; text-align: left;")= redirect.clicks
+            td.col-sm-1(style="vertical-align: middle; text-align: right;")
+              button.close
+                span.delete-alias(data-key=redirect.key style="color: #f00; outline: none;") &times;
         tr
           form(action="/redirect", method="POST")
             td.col-sm-2(style="vertical-align: middle")
-              input.form-control(name="key", placeholder="Redirect Name")
+              input.form-control(name="key", placeholder="Redirect Alias")
             td.col-sm-8(style="vertical-align: middle")
               input.form-control(name="url", placeholder="https://")
             td.col-sm-2(colspan=2, style="vertical-align: middle")
-              button.btn.btn-danger.btn-block(style="background-color: #cb7512") Create / Update
+              button.btn.btn-danger.btn-block(style="border: none; background-color: #cb7512") Create / Update

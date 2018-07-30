@@ -16,6 +16,7 @@ var app = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(favicon('./public/assets/favicon.ico'));
 
 // Initialize routes
