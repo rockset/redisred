@@ -39,7 +39,7 @@ module.exports = function (redis) {
               else if (!redirect)
                 tryRedirect(aliasParts, numAppendedParts + 1);
               else
-                res.redirect(redirect.url + appendedPath);
+                res.redirect(redirect.url + '/' + appendedPath);
             });
         }
     }
