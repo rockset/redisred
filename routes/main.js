@@ -39,8 +39,9 @@ module.exports = function (redis) {
               else if (!redirect)
                 tryRedirect(aliasParts, numAppendedParts + 1);
               else {
-                if (appendedPath[0] != '/') appendedPath = '/' + appendedPath;
-                res.redirect(redirect.url + appendedPath);
+                var baseUrl = redirect.url;
+                if (baseUrl[baseUrl.length-1] != '/') baseUrl += '/';
+                res.redirect(baseUrl + appendedPath);
               }
             });
         }
