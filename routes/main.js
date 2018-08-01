@@ -40,7 +40,7 @@ module.exports = function (redis) {
                 tryRedirect(aliasParts, numAppendedParts + 1);
               else {
                 var baseUrl = redirect.url;
-                if (baseUrl[baseUrl.length-1] != '/') baseUrl += '/';
+                if ((baseUrl[baseUrl.length-1] != '/') && (appendedPath.length > 0)) baseUrl += '/';
                 res.redirect(baseUrl + appendedPath);
               }
             });
