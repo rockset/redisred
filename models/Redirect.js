@@ -22,10 +22,35 @@ var baseKey = function(key, prefix) {
   return key.substring(prefix.length);
 };
 
+var tryFancyMatch = function(key) {
+    const match = [
+        {'pattern': /^SYS-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^IT-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^PLA-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^RS-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^UX-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^SE-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^PM-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^#([0-9]+)$/, 'redirect': 'https://github.com/rockset/rs/issues/'},
+        {'pattern': /^D([0-9]+)$/, 'redirect': 'https://rockset.phacility.com/'}
+    ];
+    for (let m of match) {
+        if (m['pattern'].test(key)) {
+            return m['redirect'] + key;
+        }
+    }
+    return null;
+}
+
 module.exports = function(redis) {
   var Redirect = {};
 
   Redirect.get = function(key, callback) {
+    const fancyRedirect = tryFancyMatch(key);
+    if (fancyRedirect) {
+        return callback(false, {'url': fancyRedirect});
+    }
+
     key = decodeURIComponent(key.toLowerCase()).replace(/[^a-z0-9_]/g,'-');
     redis.multi({ pipeline: false });
     redis.get(urlKeyPrefix+key);

@@ -16,6 +16,22 @@ module.exports = function (redis) {
     });
   })
 
+  // redirect or search google (to be used as chrome's default search engine)
+  router.get('/search', function(req, res) {
+    q = req.query['q'];
+    Redirect.get(q, function(err, redirect) {
+      if (err)
+        res.status(500).send(err);
+      else if (!redirect) {
+        res.redirect(`https://www.google.com/search?q=${encodeURIComponent(q)}`);
+      } else {
+        var baseUrl = redirect.url;
+        if ((baseUrl[baseUrl.length-1] != '/') && (appendedPath.length > 0)) baseUrl += '/';
+        res.redirect(baseUrl + appendedPath);
+      }
+    });
+  });
+
   // redirect or show 404
   router.get('/:redirect_alias*', function(req, res) {
 
