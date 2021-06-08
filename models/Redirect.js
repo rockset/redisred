@@ -24,19 +24,21 @@ var baseKey = function(key, prefix) {
 
 var tryFancyMatch = function(key) {
     const match = [
-        {'pattern': /^SYS-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^IT-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^PLA-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^RS-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^UX-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^SE-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^PM-([0-9]+)$/, 'redirect': 'https://linear.app/rockset/issue/'},
-        {'pattern': /^#([0-9]+)$/, 'redirect': 'https://github.com/rockset/rs/issues/'},
-        {'pattern': /^D([0-9]+)$/, 'redirect': 'https://rockset.phacility.com/'}
+        {'pattern': /^(SYS-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(IT-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(PLA-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(RS-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(UX-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(SE-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^(PM-[0-9]+)$/i, 'redirect': 'https://linear.app/rockset/issue/'},
+        {'pattern': /^t([0-9]+)$/i, 'redirect': 'https://github.com/rockset/rs/issues/'},
+        {'pattern': /^#([0-9]+)$/i, 'redirect': 'https://github.com/rockset/rs/issues/'},
+        {'pattern': /^(D[0-9]+)$/i, 'redirect': 'https://rockset.phacility.com/'}
     ];
     for (let m of match) {
-        if (m['pattern'].test(key)) {
-            return m['redirect'] + key;
+        const s = key.match(m['pattern']);
+        if (s) {
+            return m['redirect'] + s[1]; // first capture group
         }
     }
     return null;
