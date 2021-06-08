@@ -25,9 +25,7 @@ module.exports = function (redis) {
       else if (!redirect) {
         res.redirect(`https://www.google.com/search?q=${encodeURIComponent(q)}`);
       } else {
-        var baseUrl = redirect.url;
-        if ((baseUrl[baseUrl.length-1] != '/') && (appendedPath.length > 0)) baseUrl += '/';
-        res.redirect(baseUrl + appendedPath);
+        res.redirect(redirect.url);
       }
     });
   });
